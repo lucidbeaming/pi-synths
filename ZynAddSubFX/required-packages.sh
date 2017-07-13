@@ -28,3 +28,4 @@ sudo apt-get -y install fontconfig-config
 sudo apt-get -y install libfontconfig1-dev
 sudo apt-get -y install libxft-dev
 sudo apt-get -y install libcairo-dev
+sudo apt-get -y install rtirq-init
