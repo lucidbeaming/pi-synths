@@ -5,7 +5,11 @@ if pgrep zynaddsubfx
 then
 echo Zynaddsubfx is already singing
 else
-zynaddsubfx -U -A=0 -a -o 512 -r 96000 -b 512 -I alsa -O alsa -P 7777 -L "/usr/local/share/zynaddsubfx/banks/Choir and Voice/0034-Slow Morph_Choir.xiz" &
+# Instrument banks: /usr/share for the Debian package, /usr/local/share for a source build
+for BANKS in /usr/share/zynaddsubfx/banks /usr/local/share/zynaddsubfx/banks; do
+	[ -d "$BANKS" ] && break
+done
+zynaddsubfx -U -A=0 -a -o 512 -r 96000 -b 512 -I alsa -O alsa -P 7777 -L "$BANKS/Choir and Voice/0034-Slow Morph_Choir.xiz" &
 sleep 4
 	if pgrep zynaddsubfx
 	then
