@@ -1,31 +1,24 @@
 #!/bin/bash
+# Installs what the ZynAddSubFX box needs on Raspberry Pi OS (Debian bookworm or trixie).
+#
+#   ./required-packages.sh                 packaged ZynAddSubFX (recommended)
+#   ./required-packages.sh --from-source   build dependencies, to compile ZynAddSubFX yourself
+#
+# First written for Raspbian Jessie (2017), when ZynAddSubFX had to be built
+# from source. Current Raspberry Pi OS packages it (3.0.6).
+set -e
 
-sudo apt-get --no-install-recommends install jackd2
-sudo apt-get -y install a2jmidid
-sudo apt-get -y install laditools
-sudo apt-get -y install libfltk1.3 libfltk-images1.3 liblo7 libmxml1
-sudo apt-get -y install autoconf
-sudo apt-get -y install libtool
-sudo apt-get -y install git
-sudo apt-get -y install cmake
-sudo apt-get -y install premake
-sudo apt-get -y install cmake-curses-gui
-sudo apt-get -y install fftw3-dev
-sudo apt-get -y install libmxml-dev
-sudo apt-get -y install zlib1g-dev # installed by default
-sudo apt-get -y install libasound2-dev
-sudo apt-get -y install libjack-jackd2-dev
-sudo apt-get -y install libfltk1.3-dev
-sudo apt-get -y install non-ntk-dev
-sudo apt-get -y install libncurses-dev
-sudo apt-get -y install liblo-dev
-sudo apt-get -y install dssi-dev
-sudo apt-get -y install libjpeg-dev
-sudo apt-get -y install libxpm-dev
-sudo apt-get -y install liblash-compat-dev
-sudo apt-get -y install fontconfig
-sudo apt-get -y install fontconfig-config
-sudo apt-get -y install libfontconfig1-dev
-sudo apt-get -y install libxft-dev
-sudo apt-get -y install libcairo-dev
-sudo apt-get -y install rtirq-init
+sudo apt-get update
+
+# aconnect (alsa-utils) wires the MIDI keyboard to the synth in zynlaunch.sh;
+# rtirq-init gives audio interrupts real-time priority.
+sudo apt-get install -y alsa-utils rtirq-init
+
+if [ "$1" = "--from-source" ]; then
+  # Debian's own build dependencies for zynaddsubfx, without docs and tests
+  sudo apt-get install -y build-essential git cmake pkgconf \
+    dssi-dev fluid libasound2-dev libfftw3-dev libfltk1.3-dev libgl-dev \
+    libjack-jackd2-dev liblo-dev libmxml-dev libxpm-dev lv2-dev zlib1g-dev
+else
+  sudo apt-get install -y zynaddsubfx
+fi
