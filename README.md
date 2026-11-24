@@ -2,6 +2,8 @@
 
 Scripts for building music machines on Raspberry Pi.
 
+Documentation: [lucidbeaming.com/art/code/pi-synths](https://lucidbeaming.com/art/code/pi-synths)
+
 **Build write-up:** [Setting up a Raspberry Pi 3 to run ZynAddSubFX in a headless configuration](https://lucidbeaming.com/blog/setting-up-a-raspberry-pi-3-to-run-zynaddsubfx-in-a-headless-configuration/)
 
 These are the scripts behind a battery-powered, untethered synth box: the [ZynAddSubFX](https://zynaddsubfx.sourceforge.io/) soft synth running headless on a Raspberry Pi, played from a USB MIDI keyboard, with instruments switched from a phone over wifi. In use it became a pad and drone instrument: complex, rich sounds from a small box with no screen. The blog post above walks through the whole build; this repo holds the scripts it uses.
